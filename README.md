@@ -1,11 +1,5 @@
-## demo app - developing with Docker
+## demo app - for docker-compose
 
-This demo app shows a simple user profile app set up using 
-- index.html with pure js and css styles
-- nodejs backend with express module
-- mongodb for data storage
-
-All components are docker-based
 
 ### With Docker
 
@@ -25,25 +19,6 @@ Step 3: start mongo-express
 
 _NOTE: creating docker-network in optional. You can start both containers in a default network. In this case, just emit `--net` flag in `docker run` command_
 
-Step 4: open mongo-express from browser
-
-    http://localhost:8081
-
-Step 5: create `user-account` _db_ and `users` _collection_ in mongo-express
-
-Step 6: Start your nodejs application locally - go to `app` directory of project 
-
-    cd app
-    npm install
-
-    under server.js file change  mongoUrlDockerCompose to  mongoUrlLocal
-
-    node server.js
-    
-Step 7: Access you nodejs application UI from browser
-
-    http://localhost:3000
-
 ### With Docker Compose
 
 #### To start the application
@@ -54,20 +29,23 @@ Step 1: start mongodb and mongo-express
     
 _You can access the mongo-express under localhost:8080 from your browser_
     
-Step 2: in mongo-express UI - create a new database "my-db"
+Step 2: open mongo-express from browser
 
-Step 3: in mongo-express UI - create a new collection "users" in the database "my-db"       
+    http://localhost:8081
+
+Step 3: create `my-db` _db_ and `my-collection` _collection_ and _document_ with `{myid: 1, data: "some dynamic data loaded from db"}` in mongo-express
     
-Step 4: access the nodejs application from browser 
+
+Step 4: Access you nodejs application UI from browser
 
     http://localhost:3000
-
-#### To build a docker image from the application
-
-    docker build -t my-app:1.0 .       
     
-The dot "." at the end of the command denotes location of the Dockerfile.
+Step 5: Also you can use docker-composesecrets.yaml to use docker secrets if you have Docker Swarm setup
 
-#### To Run a docker image from the application
+    # Creation of Secrets:
+    # Before deploying your stack, you need to create the secrets using the docker secret create command. For example: Replace "your_username" and "your_password" with your actual MongoDB credentials. 
 
-    docker run -d -p 3000:3000 my-app:1.0
+    echo "your_username" | docker secret create mongo_db_username -
+    echo "your_password" | docker secret create mongo_db_pwd -
+
+    docker-compose -f docker-compose.yaml up -d
