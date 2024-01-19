@@ -34,7 +34,10 @@ Step 5: create `user-account` _db_ and `users` _collection_ in mongo-express
 Step 6: Start your nodejs application locally - go to `app` directory of project 
 
     cd app
-    npm install 
+    npm install
+
+    under server.js file change  mongoUrlDockerCompose to  mongoUrlLocal
+
     node server.js
     
 Step 7: Access you nodejs application UI from browser
@@ -47,7 +50,7 @@ Step 7: Access you nodejs application UI from browser
 
 Step 1: start mongodb and mongo-express
 
-    docker-compose -f docker-compose.yaml up
+    docker-compose -f docker-compose.yaml up -d
     
 _You can access the mongo-express under localhost:8080 from your browser_
     
@@ -55,13 +58,7 @@ Step 2: in mongo-express UI - create a new database "my-db"
 
 Step 3: in mongo-express UI - create a new collection "users" in the database "my-db"       
     
-Step 4: start node server 
-
-    cd app
-    npm install
-    node server.js
-    
-Step 5: access the nodejs application from browser 
+Step 4: access the nodejs application from browser 
 
     http://localhost:3000
 
@@ -70,3 +67,7 @@ Step 5: access the nodejs application from browser
     docker build -t my-app:1.0 .       
     
 The dot "." at the end of the command denotes location of the Dockerfile.
+
+#### To Run a docker image from the application
+
+    docker run -d -p 3000:3000 my-app:1.0
